@@ -15,9 +15,9 @@ Example:
 ```
 
 ## Deploy updates
-To deploy the app to zeit:
-- Make sure to have the zeit cli installed
-- Run the deploy command: ```now```
+To deploy updates to the app:
+- Log in to Glitch
+- copy/import the latest code
 
 ## Setup
 
