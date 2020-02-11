@@ -20,6 +20,8 @@
     "start": "probot run ./lib/index.js",
     "lint": "standard **/*.ts --fix",
     "sim:issue:opened": "probot receive -e issues -p test/fixtures/issues.opened.json ./lib/index.js",
+    "sim:pull_request:opened": "probot receive -e pull_request -p test/fixtures/pull_request.opened.json ./lib/index.js",
+    "sim:pull_request:review_requested": "probot receive -e pull_request -p test/fixtures/pull_request.review_requested.json ./lib/index.js",
     "test": "jest && standard **/*.ts",
     "test:watch": "jest --watch --notify --notifyMode=change --coverage"
   },
