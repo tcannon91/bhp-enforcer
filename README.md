@@ -2,6 +2,11 @@
 
 > A GitHub App built with [Probot](https://github.com/probot/probot) that Enforces requirements for bheng PRs
 
+## Deploy updates
+To deploy the app to zeit:
+- Make sure to have the zeit cli installed
+- Run the deploy command: ```now```
+
 ## Setup
 
 ```sh

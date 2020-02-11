@@ -14,7 +14,8 @@
     "probot-app"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "mkdir public && echo 'Hello World' > public/index.html && npm run build:code",
+    "build:code": "tsc -p tsconfig.json",
     "dev": "nodemon --exec \"npm start\"",
     "start": "probot run ./lib/index.js",
     "lint": "standard **/*.ts --fix",
@@ -23,7 +24,8 @@
     "test:watch": "jest --watch --notify --notifyMode=change --coverage"
   },
   "dependencies": {
-    "probot": "^9.5.3"
+    "probot": "^9.5.3",
+    "probot-serverless-now": "^2.1.2"
   },
   "devDependencies": {
     "@types/jest": "^24.0.19",
