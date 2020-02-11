@@ -5,7 +5,7 @@ const prTitleRegex = new RegExp(`^\\[(([A-Z]+-\d+)|(NO_TICKET))\\].+$`);
 export = (app: Application) => {
   app.on('pull_request', async (context) => {
     let descriptionError = false;
-    let squashedError = false;
+    let squashError = false;
     let signOffsError = false;
 
     const githubDetails = {
@@ -14,6 +14,7 @@ export = (app: Application) => {
       repo: context.payload.repository.name,
     };
 
+    // Check PR Title
     const titleToParse = context.payload.pull_request.title;
     if (!prTitleRegex.test(titleToParse)) {
       // DOES NOT MEET STANDARDS
@@ -28,8 +29,20 @@ export = (app: Application) => {
       descriptionError = true;
     }
 
+    // Check for squashed commits
+    if (context.payload.pull_request.commits > 1) {
+      // DOES NOT MEET STANDARDS
+      await context.github.pulls.createReview({
+        ...githubDetails,
+        event: 'REQUEST_CHANGES',
+        body: `Please squash commits prior to requesting a review. See this [reference](https://linuxhint.com/how-to-squash-git-commits/) for squashing instructions.`,
+      });
+
+      squashError = true;
+    }
+
     // Everything is looking good
-    if (!descriptionError && !squashedError && !signOffsError) {
+    if (!descriptionError && !squashError && !signOffsError) {
       await context.github.pulls.createReview({
         ...githubDetails,
         event: 'APPROVE',
